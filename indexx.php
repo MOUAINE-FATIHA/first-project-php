@@ -10,6 +10,7 @@ $typec = $con->query("SELECT categorie, COUNT(*) as total from cours GROUP BY ca
 $typeEq = $con->query("SELECT type, COUNT(*) as total from equipement GROUP BY type");
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

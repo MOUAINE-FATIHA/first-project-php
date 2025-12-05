@@ -65,10 +65,10 @@
 
             <h2 class="mb-4">Liste des équipements</h2>
 
-            <a class="btn btn-primary mb-3" href="/projet-php/create-eq.php">Ajouter</a>
+            <a class="btn btn-warning mb-3" href="/projet-php/create-eq.php">Ajouter</a>
 
-            <form action="export-pdf.php" method="post" class="mb-3">
-                <input type="submit" class="btn btn-outline-danger" value="Exporter PDF">
+            <form action="CSV-eq.php" method="post" class="mb-2">
+                <input type="submit" class="btn btn-outline-info" value="Exporter csv">
             </form>
 
             <table class="table table-striped table-hover shadow-sm bg-white">
@@ -78,7 +78,7 @@
                         <th>Nom</th>
                         <th>Quantité</th>
                         <th>Type</th>
-                        <th>État</th>
+                        <th>Etat</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -100,7 +100,7 @@
                             <td>{$row['etat']}</td>
 
                             <td>
-                                <a class='btn btn-sm btn-primary' href='/projet-php/edit-eq.php?id={$row['id_equipe']}'>Modifier</a>
+                                <a class='btn btn-sm btn-warning' href='/projet-php/edit-eq.php?id={$row['id_equipe']}'>Modifier</a>
                                 <a class='btn btn-sm btn-danger' href='/projet-php/delete-eq.php?id={$row['id_equipe']}'>Supprimer</a>
                             </td>
                         </tr>

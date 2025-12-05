@@ -21,6 +21,7 @@ create table cours_equipements (
     FOREIGN KEY (id_cours) references cours(id_cours),
     FOREIGN KEY (id_equipe) references equipement(id_equipe),
     unique (id_cours, id_equipe)
+    
 );
 
 insert into cours(
@@ -37,3 +38,5 @@ insert into equipement (
 	('Step', 15, 'Accessoire', 'moyen'),
 	('Tapis de sol', 25, 'Accessoire', 'bon'),
 	('Corde à sauter', 10, 'Cardio', 'a remplacer');
+
+SELECT categorie, COUNT(*) as total from cours GROUP BY categorie
