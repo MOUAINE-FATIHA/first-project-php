@@ -1,4 +1,4 @@
-Salle de Sport
+**Salle de Sport**
 
 Ce projet est une application web permettant la gestion complète d’une salle de sport :  
 cours, équipements, statistiques, associations, et l'export.
