@@ -39,4 +39,20 @@ insert into equipement (
 	('Tapis de sol', 25, 'Accessoire', 'bon'),
 	('Corde à sauter', 10, 'Cardio', 'a remplacer');
 
-SELECT categorie, COUNT(*) as total from cours GROUP BY categorie
+SELECT categorie, COUNT(*) as total from cours GROUP BY categorie;
+
+SELECT * FROM cours;
+
+DELETE FROM cours WHERE id_cours ='$id';
+
+INSERT INTO cours (nom_c, categorie, date_c, heure_c, duree, nb_max_p)
+                VALUES ('$nom', '$categorie', '$date', '$heure', '$duree', '$nb_max_p');
+                
+UPDATE cours SET 
+                nom_c='$nom',
+                categorie='$categorie',
+                date_c='$date',
+                heure_c='$heure',
+                duree='$duree',
+                nb_max_p='$nb_max_p'
+                WHERE id_cours=$id 

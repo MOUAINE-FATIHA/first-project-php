@@ -168,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Durée (min)</label>
+                    <label class="form-label">Durée</label>
                     <input type="number" class="form-control" name="duree" value="<?= $duree ?>">
                 </div>
 
