@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
+
 require "connect.php";
 $cours = $con->query("SELECT COUNT(*) as total from cours");
 $totalc = $cours->fetch_assoc()['total'];
@@ -16,16 +23,18 @@ $typeEq = $con->query("SELECT type, COUNT(*) as total from equipement GROUP BY t
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salle de Sport</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="indexx.css">
 </head>
 <body>
     <aside class="sidebar">
         <h2 class="logo">SalleSport</h2>
         <ul>
             <li><a href="index.php" class="active">Dashboard</a></li>
+            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
             <li><a href="cours.php">Cours</a></li>
             <li><a href="equipements.php">Equipements</a></li>
             <li><a href="stats.php">Statistiques</a></li>
+            <?php endif; ?>
         </ul>
     </aside>
     <main class="main">

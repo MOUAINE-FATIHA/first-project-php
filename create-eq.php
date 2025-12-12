@@ -12,27 +12,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantite = $_POST["quantite"];
     $type = $_POST["type"];
     $etat = $_POST["etat"];
-
     do {
         if (empty($nom) || empty($quantite) || empty($type) || empty($etat)) {
             $errorMessage = "Tous les champs sont obligatoires.";
             break;
         }
-
         $sql = "INSERT INTO equipement (nom_eq, quantite_dispo,type, etat)
                 VALUES ('$nom', '$quantite', '$type', '$etat')";
         $result= $con->query($sql);
-
         if(!$result){
             $errorMessage = "Query invalide: ". $con->error;
             break;
         }
-
         $nom = "";
         $quantite = "";
         $type = "";
         $etat = "";
-
         $successMessage = "Équipement ajouté avec succès";
         header("Location: equipements.php");
         exit;
@@ -52,20 +47,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .sidebar {
         width: 240px;
         height: 100vh;
-        background: #1f1f2e;
+        background: #1b3f65ff;
         color: white;
         padding: 20px;
         position: fixed;
         top:0; left:0;
     }
-    .sidebar h2 { margin-bottom: 30px; }
-    .sidebar a {
-        display:block; color:#ccc; padding:12px; margin-bottom:10px; border-radius:8px;
-        text-decoration:none; transition:.25s;
+    .sidebar h2 { 
+        color:#d2a812;
+        margin-bottom: 30px; 
     }
-    .sidebar a:hover, .sidebar a.active { background:#32324a; color:#fff; padding-left:20px; }
-    .content { margin-left:260px; padding:40px; }
-    .card { border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,.07); border:none; }
+    .sidebar a {
+        display:block; 
+        color:#ccc; 
+        padding:12px; 
+        margin-bottom:10px; 
+        border-radius:40px;
+        text-decoration:none; 
+        transition:.25s;
+    }
+    .sidebar a:hover, 
+    .sidebar a.active { 
+        background:#032d5aff; 
+        color:#fff; 
+        padding-left:20px; 
+    }
+    h4 {
+            margin-bottom: 20px;
+            color:#d2a812;
+        }
+    .content { 
+        margin-left:260px; 
+        padding:40px; }
+    .card { 
+        border-radius:10px; 
+        box-shadow:0 4px 10px rgba(0,0,0,.07); 
+        border:none; 
+    }
+    .crud{
+            background: #032d5aff;
+            color: white;
+            border-radius: 40px;
+            border:none;
+        }
+    .ann{
+            background: #5b5e73ff;
+            color: white;
+            border-radius: 40px;
+            border:none;
+    }
 </style>
 </head>
 <body>
@@ -86,29 +116,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endif; ?>
 
             <form method="POST">
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Nom de l'équipement</label>
                     <input type="text" class="form-control" name="nom" value="<?= $nom ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Quantité</label>
                     <input type="number" class="form-control" name="quantite" value="<?= $quantite ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Type</label>
                     <input type="text" class="form-control" name="type" value="<?= $type ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">État</label>
                     <input type="text" class="form-control" name="etat" value="<?= $etat ?>">
                 </div>
 
                 <div class="d-flex gap-3">
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
-                    <a href="equipements.php" class="btn btn-outline-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary crud">Ajouter</button>
+                    <a href="equipements.php" class="btn btn-outline-secondary ann">Annuler</a>
                 </div>
             </form>
         </div>

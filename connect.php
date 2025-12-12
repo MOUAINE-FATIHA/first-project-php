@@ -3,7 +3,6 @@ $host = "localhost";
 $dbname = "sport_db";
 $username = "root";
 $password = "";
-
 $con = new mysqli($host, $username, $password, $dbname);
 
 if ($con->connect_error) {

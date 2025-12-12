@@ -1,6 +1,5 @@
 <?php
 require "connect.php";
-
 $nom = "";
 $categorie = "";
 $date = "";
@@ -17,24 +16,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $heure = $_POST["heure"];
     $duree = $_POST["duree"];
     $nb_max_p = $_POST["nb_max_p"];
-
     do {
         if (empty($nom) || empty($categorie) || empty($date) || empty($heure) || empty($duree) || empty($nb_max_p)) {
             $errorMessage = "Tous les champs sont obligatoires.";
             break;
         }
-
         $sql = "INSERT INTO cours (nom_c, categorie, date_c, heure_c, duree, nb_max_p)
                 VALUES ('$nom', '$categorie', '$date', '$heure', '$duree', '$nb_max_p')";
-
         if (!$con->query($sql)) {
             $errorMessage = "Erreur : " . $con->error;
             break;
         }
-
         header("Location: cours.php");
         exit;
-
     } while (false);
 }
 ?>
@@ -54,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .sidebar {
             width: 240px;
             height: 100vh;
-            background: #1f1f2e;
+            background: #1b3f65ff;
             color: white;
             padding: 20px;
             position: fixed;
@@ -63,8 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .sidebar h2 {
+            color:#d2a812;
             font-size: 22px;
             margin-bottom: 30px;
+
         }
 
         .sidebar a {
@@ -73,13 +69,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-decoration: none;
             padding: 12px;
             margin-bottom: 10px;
-            border-radius: 8px;
+            border-radius: 40px;
             transition: .25s;
         }
 
         .sidebar a:hover,
         .sidebar a.active {
-            background: #33334d;
+            background: #032d5aff;
             color: #fff;
             padding-left: 20px;
         }
@@ -96,6 +92,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .card h4 {
             margin-bottom: 20px;
+            color:#d2a812;
+        }
+        .crud{
+            background: #032d5aff;
+            color: white;
+            border-radius: 40px;
+            border:none;
+            
+        }
+        .ann{
+            background: #5b5e73ff;
+            color: white;
+            border-radius: 40px;
+            border:none;
         }
     </style>
 </head>
@@ -121,39 +131,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <form method="POST">
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label class="form-label">Nom du cours</label>
                         <input type="text" class="form-control" name="nom" value="<?= $nom ?>">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label class="form-label">Catégorie</label>
                         <input type="text" class="form-control" name="categorie" value="<?= $categorie ?>">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label class="form-label">Date</label>
                         <input type="date" class="form-control" name="date" value="<?= $date ?>">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label class="form-label">Heure</label>
                         <input type="time" class="form-control" name="heure" value="<?= $heure ?>">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label class="form-label">Durée</label>
                         <input type="number" class="form-control" name="duree" value="<?= $duree ?>">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label class="form-label">Nb max participants</label>
                         <input type="number" class="form-control" name="nb_max_p" value="<?= $nb_max_p ?>">
                     </div>
 
                     <div class="d-flex gap-3">
-                        <button type="submit" class="btn btn-primary">Ajouter</button>
-                        <a href="cours.php" class="btn btn-outline-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-primary crud">Ajouter</button>
+                        <a href="cours.php" class="btn btn-outline-secondary ann">Annuler</a>
                     </div>
 
                 </form>

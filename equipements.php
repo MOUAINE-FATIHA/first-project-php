@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
+
+if ($_SESSION['role'] != 'admin') {
+    header("Location: acceeR.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,7 +28,7 @@
         .sidebar {
             width: 240px;
             height: 100vh;
-            background: #1f1f2e;
+            background: #1b3f65ff;
             color: white;
             padding: 20px;
             position: fixed;
@@ -24,6 +37,7 @@
         }
 
         .sidebar h2 {
+            color:#d2a812;
             font-size: 22px;
             margin-bottom: 30px;
             font-weight: bold;
@@ -34,20 +48,32 @@
             color: #cbd5e1;
             display: block;
             padding: 12px 14px;
-            border-radius: 8px;
+            border-radius: 40px;
             margin-bottom: 10px;
             transition: 0.25s;
         }
 
         .sidebar a:hover,
         .sidebar a.active {
-            background: #32324a;
-            padding-left: 22px;
+            background: #032d5aff;
             color: white;
+            padding-left: 20px;
         }
         .content {
             margin-left: 260px;
             padding: 30px;
+        }
+        .crud{
+            background: #032d5aff;
+            color: white;
+            border-radius: 40px;
+            border:none;
+        }
+        .sup{
+            background: #f00000ff;
+            color: white;
+            border-radius: 40px;
+            border:none;
         }
     </style>
 
@@ -62,17 +88,14 @@
     </div>
     <div class="content">
         <div class="container">
-
-            <h2 class="mb-4">Liste des équipements</h2>
-
-            <a class="btn btn-warning mb-3" href="/projet-php/create-eq.php">Ajouter</a>
-
+            <h2 class="mb-4" style="color: #1b3f65ff;">Liste des équipements</h2>
+            <a class="btn btn-warning mb-3 crud" href="/projet-php/create-eq.php">Ajouter</a>
             <form action="CSV-eq.php" method="post" class="mb-2">
-                <input type="submit" class="btn btn-outline-info" value="Exporter csv">
+                <input type="submit" class="btn btn-outline-warning crud" value="Exporter csv">
             </form>
 
-            <table class="table table-striped table-hover shadow-sm bg-white">
-                <thead class="table-dark">
+            <table class="table table-striped shadow-sm bg-white">
+                <thead class="table-warning">
                     <tr>
                         <th>ID</th>
                         <th>Nom</th>
@@ -83,34 +106,39 @@
                     </tr>
                 </thead>
                 <tbody>
-
                 <?php
                     require "connect.php";
-
                     $sql = "SELECT * FROM equipement";
-                    $result = mysqli_query($con, $sql);
-
+                    if (!empty($_GET['etat'])) {
+                    $etat = mysqli_real_escape_string($con, $_GET['etat']);
+                    $sql .= " WHERE etat = '$etat'";
+                }
+                $sql .= " ORDER BY quantite_dispo ASC";
+                $result = mysqli_query($con, $sql);
                     while ($row = $result->fetch_assoc()) {
-                        echo "
-                        <tr>
+                        echo "<tr>
                             <td>{$row['id_equipe']}</td>
                             <td>{$row['nom_eq']}</td>
                             <td>{$row['quantite_dispo']}</td>
                             <td>{$row['type']}</td>
                             <td>{$row['etat']}</td>
-
                             <td>
-                                <a class='btn btn-sm btn-warning' href='/projet-php/edit-eq.php?id={$row['id_equipe']}'>Modifier</a>
-                                <a class='btn btn-sm btn-danger' href='/projet-php/delete-eq.php?id={$row['id_equipe']}'>Supprimer</a>
+                                <a class='btn btn-sm btn-warning crud' href='/projet-php/edit-eq.php?id={$row['id_equipe']}'>Modifier</a>
+                                <a class='btn btn-sm btn-danger sup' href='/projet-php/delete-eq.php?id={$row['id_equipe']}'>Supprimer</a>
                             </td>
-                        </tr>
-                        ";
-                    }
-                ?>
-
+                        </tr>";
+                    }?>
                 </tbody>
             </table>
-
+            <form method="GET" class="mb-3 d-flex gap-2 align-items-center">
+                <select name="etat" class="form-select" style="width: 250px;">
+                    <option value="">Tous les états</option>
+                    <option value="bon" <?php if(!empty($_GET['etat']) && $_GET['etat']=='bon') echo 'selected'; ?>>Bon</option>
+                    <option value="moyen" <?php if(!empty($_GET['etat']) && $_GET['etat']=='moyen') echo 'selected'; ?>>Moyen</option>
+                    <option value="a remplacer" <?php if(!empty($_GET['etat']) && $_GET['etat']=='a remplacer') echo 'selected'; ?>>À remplacer</option>
+                </select>
+                <button type="submit" class="btn btn-primary crud">Filtrer</button>
+            </form>
         </div>
     </div>
 

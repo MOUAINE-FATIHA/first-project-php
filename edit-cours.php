@@ -1,6 +1,5 @@
 <?php
 require "connect.php";
-
 $nom = "";
 $categorie = "";
 $date = "";
@@ -11,12 +10,10 @@ $errorMessage = "";
 $successMessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-
     if (!isset($_GET["id"])) {
         header("Location: cours.php");
         exit;
     }
-
     $id = $_GET["id"];
     $sql = "SELECT * FROM cours WHERE id_cours = $id";
     $result = $con->query($sql);
@@ -25,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         header("Location: cours.php");
         exit;
     }
-
     $row = $result->fetch_assoc();
     $nom = $row["nom_c"];
     $categorie = $row["categorie"];
@@ -35,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $nb_max_p = $row["nb_max_p"];
 
 } else {
-
     $id = $_POST["id"];
     $nom = $_POST["nom"];
     $categorie = $_POST["categorie"];
@@ -43,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $heure = $_POST["heure"];
     $duree = $_POST["duree"];
     $nb_max_p = $_POST["nb_max_p"];
-
     if (empty($nom) || empty($categorie) || empty($date) || empty($heure) || empty($duree) || empty($nb_max_p)) {
         $errorMessage = "Tous les champs sont obligatoires.";
     } else {
@@ -56,7 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 duree='$duree',
                 nb_max_p='$nb_max_p'
                 WHERE id_cours=$id";
-
         if ($con->query($sql)) {
             header("Location: cours.php");
             exit;
@@ -84,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     .sidebar {
         width: 240px;
         height: 100vh;
-        background: #1f1f2e;
+        background: #1b3f65ff;
         color: white;
         padding: 20px;
         position: fixed;
@@ -93,6 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     .sidebar h2 {
+        color:#d2a812;
         margin-bottom: 30px;
     }
 
@@ -101,14 +95,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         color: #ccc;
         display: block;
         padding: 12px;
-        border-radius: 8px;
+        border-radius: 40px;
         margin-bottom: 10px;
         transition: .25s;
     }
 
     .sidebar a:hover,
     .sidebar a.active {
-        background: #32324a;
+        background: #032d5aff;
         color: #fff;
         padding-left: 20px;
     }
@@ -116,12 +110,27 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         margin-left: 260px;
         padding: 40px;
     }
-
+    h4 {
+            margin-bottom: 20px;
+            color:#d2a812;
+        }
     .card {
         border-radius: 10px;
         border: none;
         box-shadow: 0 4px 10px rgba(0,0,0,.07);
     }
+    .crud{
+            background: #032d5aff;
+            color: white;
+            border-radius: 40px;
+            border:none;
+        }
+    .ann{
+            background: #5b5e73ff;
+            color: white;
+            border-radius: 40px;
+            border:none;
+        }
 </style>
 
 </head>
@@ -147,39 +156,39 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <form method="POST">
                 <input type="hidden" name="id" value="<?= $id ?>">
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Nom du cours</label>
                     <input type="text" class="form-control" name="nom" value="<?= $nom ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Catégorie</label>
                     <input type="text" class="form-control" name="categorie" value="<?= $categorie ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Date</label>
                     <input type="date" class="form-control" name="date" value="<?= $date ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Heure</label>
                     <input type="time" class="form-control" name="heure" value="<?= $heure ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Durée</label>
                     <input type="number" class="form-control" name="duree" value="<?= $duree ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Nb max participants</label>
                     <input type="number" class="form-control" name="nb_max_p" value="<?= $nb_max_p ?>">
                 </div>
 
                 <div class="d-flex gap-3">
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <a href="cours.php" class="btn btn-outline-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary crud">Enregistrer</button>
+                    <a href="cours.php" class="btn btn-outline-secondary ann">Annuler</a>
                 </div>
             </form>
 

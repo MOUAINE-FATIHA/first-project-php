@@ -1,6 +1,5 @@
 <?php
 require "connect.php";
-
 $nom = "";
 $quantite="";
 $type="";
@@ -13,21 +12,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         header("Location: /projet-php/equipements.php");
         exit;
     }
-
     $id = $_GET["id"];
     $sql = "SELECT * FROM equipement WHERE id_equipe = $id";
     $result = $con->query($sql);
-
     if (!$result || $result->num_rows == 0) {
         header("Location: /projet-php/equipements.php");
         exit;
     }
-
     $row = $result->fetch_assoc();
     $nom = $row["nom_eq"];
     $quantite = $row["quantite_dispo"];
     $type = $row["type"];
     $etat = $row["etat"];
+
+
 } else {
     $id = $_POST["id"];
     $nom = $_POST["nom"];
@@ -36,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $etat = $_POST["etat"];
 
     if (empty($nom) || empty($quantite) || empty($type) || empty($etat)) {
-        $errorMessage = "Tous les champs sont obligatoires.";
+        $errorMessage = "Tous les champs sont obligatoires";
     } else {
         $sql = "UPDATE equipement SET
                     nom_eq = '$nom',
@@ -63,24 +61,63 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 <title>Modifier Équipement</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"/>
 <style>
-    body { background: #f5f6fa; margin:0; }
+    body { 
+        background: #f5f6fa; 
+        margin:0; 
+    }
     .sidebar {
         width: 240px;
         height: 100vh;
-        background: #1f1f2e;
+        background: #1b3f65ff;
         color: white;
         padding: 20px;
         position: fixed;
         top:0; left:0;
     }
-    .sidebar h2 { margin-bottom: 30px; }
-    .sidebar a {
-        display:block; color:#ccc; padding:12px; margin-bottom:10px; border-radius:8px;
-        text-decoration:none; transition:.25s;
+    .sidebar h2 { 
+        color:#d2a812;
+        margin-bottom: 30px; 
     }
-    .sidebar a:hover, .sidebar a.active { background:#32324a; color:#fff; padding-left:20px; }
-    .content { margin-left:260px; padding:40px; }
-    .card { border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,.07); border:none; }
+    .sidebar a {
+        display:block; 
+        color:#ccc; 
+        padding:12px; 
+        margin-bottom:10px; 
+        border-radius:40px;
+        text-decoration:none; 
+        transition:.25s;
+    }
+    .sidebar a:hover, 
+    .sidebar a.active { 
+        background:#032d5aff; 
+        color:#fff; 
+        padding-left:20px; 
+    }
+    .content { 
+        margin-left:260px; 
+        padding:40px; 
+    }
+    .card { 
+        border-radius:10px; 
+        box-shadow:0 4px 10px rgba(37, 38, 108, 0.07); 
+        border:none; 
+    }
+    h4 {
+            margin-bottom: 20px;
+            color:#d2a812;
+        }
+    .crud{
+            background: #032d5aff;
+            color: white;
+            border-radius: 40px;
+            border:none;
+        }
+    .ann{
+            background: #5b5e73ff;
+            color: white;
+            border-radius: 40px;
+            border:none;
+        }
 </style>
 </head>
 <body>
@@ -105,29 +142,29 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <form method="POST">
                 <input type="hidden" name="id" value="<?= $id ?>">
                 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Nom de l'équipement</label>
                     <input type="text" class="form-control" name="nom" value="<?= $nom ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Quantité</label>
                     <input type="number" class="form-control" name="quantite" value="<?= $quantite ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">Type</label>
                     <input type="text" class="form-control" name="type" value="<?= $type ?>">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="form-label">État</label>
                     <input type="text" class="form-control" name="etat" value="<?= $etat ?>">
                 </div>
 
                 <div class="d-flex gap-3">
-                    <button type="submit" class="btn btn-primary">Modifier</button>
-                    <a href="equipements.php" class="btn btn-outline-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary crud">Modifier</button>
+                    <a href="equipements.php" class="btn btn-outline-secondary ann">Annuler</a>
                 </div>
             </form>
         </div>
