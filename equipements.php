@@ -6,6 +6,7 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
+
 if ($_SESSION['role'] != 'admin') {
     header("Location: acceeR.php");
     exit;
